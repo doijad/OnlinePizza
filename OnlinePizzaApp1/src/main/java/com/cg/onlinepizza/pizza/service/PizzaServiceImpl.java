@@ -70,8 +70,9 @@ public class PizzaServiceImpl implements PizzaService{
 
 	@Override
 	public List<Pizza> viewPizzaList(double minCost, double maxCost) throws InvalidMinCostException {
-		
-		return null;
+		if(minCost<0)
+			throw new InvalidMinCostException("Invalid cost");
+		return pizzaRepo.viewPizzaList(minCost, maxCost);
 	}
 
 }

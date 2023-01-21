@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cg.onlinepizza.pizza.entity.Pizza;
+import com.cg.onlinepizza.pizza.exception.InvalidMinCostException;
 import com.cg.onlinepizza.pizza.exception.PizzaIdNotFoundException;
 import com.cg.onlinepizza.pizza.service.PizzaService;
 
@@ -31,6 +32,11 @@ public class PizzaController {
 	@GetMapping("/pizza/{pizzaId}")
 	public ResponseEntity<Pizza> getById(@PathVariable("pizzaId") int pizzaId)throws PizzaIdNotFoundException{
 		return ResponseEntity.ok(pizzaService.viewPizza(pizzaId));
+	}
+	
+	@GetMapping("/betweencost/{minCost}/{maxCost}")
+	public ResponseEntity<List<Pizza>> getByCost(@PathVariable("minCost") double minCost,@PathVariable("maxCost") double maxCost)throws InvalidMinCostException{
+		return ResponseEntity.ok(pizzaService.viewPizzaList(minCost,maxCost));
 	}
 	
 	@PostMapping("/pizzaadded")
